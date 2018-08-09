@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package driver;
+
+// The pet driver service definition
+service PetDriver {
+    // send command to pet driver and return command result
+    rpc SendCommand(Command) returns (CommandReply) {}
+    // start acquire data
+    rpc AcquireData(AcqParam) returns (CommandReply) {}
+}
+
+// data acquiration parameters
+message AcqParam {
+    // how long to acquire, unit is second
+    int32 duration = 1;
+    // the file name of the data
+    string file_name = 2;
+}
+
+// pet command
+message Command {
+    // list of current supported commands, will add if necessary
+    enum CMD {
+        PING = 0;
+        INIT = 1;
+    }
+    CMD cmd = 1;
+    // command destionation
+    int32 dst = 2;
+    // command payload
+    int32 payload = 3;
+}
+
+// command execution result
+message CommandReply {
+    // indicate if the command is successfully
+    bool result = 1;
+    // error messages, none if successful
+    string err_msg = 2;
+}
