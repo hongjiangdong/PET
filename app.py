@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import grpc
 
 import petdriver_pb2
@@ -20,7 +20,7 @@ def acquire():
 	duration = int(request.args.get('d'))
 	file_name = request.args.get('f')
 	response = smple_command_acquire(duration, file_name)
-	return json.dumps(response)
+	return jsonify(response)
 
 
 def smple_command_acquire(duration, file_name):
@@ -37,7 +37,7 @@ def init():
 	destination = int(request.args.get('d'))
 	payload = int(request.args.get('p'))
 	response = smple_command_send('INIT', destination, payload)
-	return json.dumps(response)
+	return jsonify(response)
 
 
 @app.route('/ping/')
@@ -48,7 +48,7 @@ def ping():
 	destination = int(request.args.get('d'))
 	payload = int(request.args.get('p'))
 	response = smple_command_send('PING', destination, payload)
-	return json.dumps(response)
+	return jsonify(response)
 
 
 def smple_command_send(enum, d, p):
