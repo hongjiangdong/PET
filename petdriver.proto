@@ -24,6 +24,7 @@ message Command {
     enum CMD {
         PING = 0;
         INIT = 1;
+        INIT = 1;
     }
     CMD cmd = 1;
     // command destionation

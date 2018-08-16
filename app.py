@@ -6,7 +6,11 @@ import grpc
 import petdriver_pb2
 import petdriver_pb2_grpc
 
+from flask_cors import CORS
+
 app = Flask(__name__)
+
+CORS(app)
 
 ip_port = '192.168.1.151:40001'
 channel = grpc.insecure_channel(ip_port)
@@ -59,4 +63,5 @@ def smple_command_send(enum, d, p):
 
 
 if __name__ == '__main__':
-	app.run()
+	app.run(debug=True, host='0.0.0.0', port=8888)
+# app.run(debug=True)
