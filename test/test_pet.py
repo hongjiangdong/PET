@@ -1,7 +1,5 @@
 import requests
-import unittest
-from teamcity import is_running_under_teamcity
-from teamcity.unittestpy import TeamcityTestRunner
+
 
 domain = 'http://127.0.0.1:8888/'
 
@@ -32,10 +30,3 @@ def assertion_code(path):
 	assert res[0] == True
 	assert res[1] == ''
 
-
-if __name__ == '__main__':
-	if is_running_under_teamcity():
-		runner = TeamcityTestRunner()
-	else:
-		runner = unittest.TextTestRunner()
-	unittest.main(testRunner=runner)
