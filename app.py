@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 CORS(app)
 
-ip_port = '192.168.1.151:40001'
+ip_port = '127.0.0.1:40001'
 channel = grpc.insecure_channel(ip_port)
 
 
