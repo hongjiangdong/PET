@@ -1,22 +1,14 @@
-import json
-
 from flask import Flask, request, jsonify
-import grpc
-
-import petdriver_pb2
-import petdriver_pb2_grpc
-
 from flask_cors import CORS
+
+from request_gRPC_server import *
 
 app = Flask(__name__)
 
 CORS(app)
 
-ip_port = '127.0.0.1:40001'
-channel = grpc.insecure_channel(ip_port)
 
-
-@app.route('/acquire/')
+@app.route('/acquire')
 def acquire():
 	"""
 	Access to resources
@@ -27,13 +19,7 @@ def acquire():
 	return jsonify(response)
 
 
-def smple_command_acquire(duration, file_name):
-	stub = petdriver_pb2_grpc.PetDriverStub(channel)
-	response = stub.AcquireData(petdriver_pb2.AcqParam(duration=duration, file_name=file_name))
-	return response.result, response.err_msg
-
-
-@app.route('/init/')
+@app.route('/init')
 def init():
 	"""
 	Initialize device
@@ -44,7 +30,7 @@ def init():
 	return jsonify(response)
 
 
-@app.route('/ping/')
+@app.route('/ping')
 def ping():
 	"""
 	Connection test
@@ -55,13 +41,5 @@ def ping():
 	return jsonify(response)
 
 
-def smple_command_send(enum, d, p):
-	stub = petdriver_pb2_grpc.PetDriverStub(channel)
-	response = stub.SendCommand(
-		petdriver_pb2.Command(cmd=enum, dst=d, payload=p))
-	return response.result, response.err_msg
-
-
 if __name__ == '__main__':
 	app.run(debug=True, host='0.0.0.0', port=8888)
-# app.run(debug=True)

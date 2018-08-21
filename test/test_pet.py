@@ -1,21 +1,20 @@
 import requests
 
-
 domain = 'http://127.0.0.1:8888/'
 
 
 def test_acquire():
-	path = 'acquire/?d=11&f=11'
+	path = 'acquire?d=11&f=11'
 	assertion_code(path)
 
 
 def test_ping():
-	path = 'ping/?d=11&p=11'
+	path = 'ping?d=11&p=11'
 	assertion_code(path)
 
 
 def test_init():
-	path = 'init/?d=11&p=11'
+	path = 'init?d=11&p=11'
 	assertion_code(path)
 
 
@@ -29,4 +28,3 @@ def assertion_code(path):
 	res = res.json()
 	assert res[0] == True
 	assert res[1] == ''
-
